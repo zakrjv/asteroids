@@ -5,7 +5,8 @@ export default function Asteroids() {
     <section className="ml-14">
       <h1 className="mb-2 text-title">Ближайшие подлёты астероидов</h1>
       <div className="mb-6 font-bold">
-        <button>в километрах</button> | <button>в лунных орбитах</button>
+        <button>в километрах</button> |{' '}
+        <button className="font-normal underline">в лунных орбитах</button>
       </div>
 
       <ul>
