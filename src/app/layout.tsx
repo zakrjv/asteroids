@@ -1,9 +1,9 @@
-import './globals.css';
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Asteroids',
+  title: 'Main',
   description:
     'Online service for monitoring and destroying dangerous asteroids',
 };

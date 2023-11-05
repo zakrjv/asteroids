@@ -1,5 +1,5 @@
-import Asteroids from '@/components/Asteroids';
-import Cart from '../components/Cart';
+import Asteroids from '../components/Asteroids';
+import Cart from '@/components/Cart';
 
 export default function Home() {
   return (
