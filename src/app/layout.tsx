@@ -3,7 +3,7 @@ import Header from '@/components/Header';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Main',
+  title: 'Asteroids',
   description:
     'Online service for monitoring and destroying dangerous asteroids',
 };
