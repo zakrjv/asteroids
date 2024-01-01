@@ -1,13 +1,18 @@
 import Image from 'next/image';
+import { Asteroid } from '@/shared/types';
 
-export default function Asteroid() {
+export default function Asteroid({ asteroid }: { asteroid: Asteroid }) {
   return (
     <>
-      <p className="mb-2 font-bold text-2xl">12 сент 2023</p>
+      <p className="mb-2 font-bold text-2xl">
+        {asteroid.close_approach_data[0].close_approach_date_full}
+      </p>
 
       <div className="flex items-center mb-2">
         <div className="relative inline-block mr-2">
-          <p>5 652 475 км</p>
+          <p>{`${Math.round(
+            +asteroid.close_approach_data[0].miss_distance.kilometers
+          )} км`}</p>
           <div className="flex opacity-50 items-center text-[6px]">
             <div>◀</div>
             <div className="w-full h-px bg-white" />
@@ -24,8 +29,10 @@ export default function Asteroid() {
         />
 
         <div>
-          <p className="font-bold underline">2021 FQ</p>
-          <p className="text-xs">Ø 234 м</p>
+          <p className="font-bold underline">{asteroid.name}</p>
+          <p className="text-xs">{`Ø ${Math.round(
+            asteroid.estimated_diameter.meters.estimated_diameter_max
+          )} м`}</p>
         </div>
       </div>
 

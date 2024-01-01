@@ -30,5 +30,5 @@ export const useFetchAsteroids = (date: string) => {
       .finally(() => setLoading(false));
   }, [date, getData]);
 
-  return [isLoading, data, isError];
+  return { data, isLoading, isError };
 };

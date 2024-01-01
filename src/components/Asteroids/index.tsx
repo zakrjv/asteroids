@@ -14,28 +14,11 @@ const ONE_DAY = 1;
 export default function Asteroids() {
   const [asteroids, setAsteroids] = useState<AsteroidsType | null>(null);
   const [date, setDate] = useState<string>(today);
-  // const [shouldLoadMore, setShouldLoadMore] = useState<boolean>(true);
 
   const { ref, inView } = useInView({
     threshold: 1,
   });
-  const [isLoading, data, isError] = useFetchAsteroids(date);
-
-  // useEffect(() => {
-  //   const getAsteroids = async () => {
-  //     const newAsteroids = await fetchAsteroids({
-  //       start_date: date,
-  //       end_date: date,
-  //     });
-  //
-  //     if (!newAsteroids || Object.keys(newAsteroids).length === 0) {
-  //       setShouldLoadMore(false);
-  //     }
-  //     setAsteroids((prev) => ({ ...prev, ...newAsteroids }));
-  //   };
-  //
-  //   getAsteroids().catch(console.error);
-  // }, [date, shouldLoadMore]);
+  const { data, isLoading, isError } = useFetchAsteroids(date);
 
   useEffect(() => {
     setAsteroids((prev) => ({ ...prev, ...data }));
@@ -49,7 +32,7 @@ export default function Asteroids() {
     }
   }, [inView]);
 
-  console.log(data, isLoading, isError);
+  console.log(asteroids, isError);
 
   return (
     // Убрать magic number из стилей
@@ -73,8 +56,7 @@ export default function Asteroids() {
                   className="mb-6 last:mb-24"
                   key={asteroid.id + asteroid.name}
                 >
-                  <div>{asteroid.name}</div>
-                  <Asteroid />
+                  <Asteroid asteroid={asteroid} />
                 </li>
               ));
             })}
