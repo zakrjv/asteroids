@@ -1,7 +1,22 @@
 import Image from 'next/image';
-import { Asteroid } from '@/shared/types';
+import { Asteroid, UnitDistance } from '@/shared/types';
 
-export default function Asteroid({ asteroid }: { asteroid: Asteroid }) {
+interface Props {
+  asteroid: Asteroid;
+  unitDistance: UnitDistance;
+}
+
+export default function Asteroid({ asteroid, unitDistance }: Props) {
+  const diameter = Math.round(
+    asteroid.estimated_diameter.meters.estimated_diameter_max
+  );
+  const distanceKilometers = Math.round(
+    +asteroid.close_approach_data[0].miss_distance.kilometers
+  );
+  const distanceLunar = Math.round(
+    +asteroid.close_approach_data[0].miss_distance.lunar
+  );
+
   return (
     <>
       <p className="mb-2 font-bold text-2xl">
@@ -10,9 +25,12 @@ export default function Asteroid({ asteroid }: { asteroid: Asteroid }) {
 
       <div className="flex items-center mb-2">
         <div className="relative inline-block mr-2">
-          <p>{`${Math.round(
-            +asteroid.close_approach_data[0].miss_distance.kilometers
-          )} км`}</p>
+          {unitDistance === 'lunar' ? (
+            <p>{`${distanceLunar} лн`}</p>
+          ) : (
+            <p>{`${distanceKilometers} км`}</p>
+          )}
+
           <div className="flex opacity-50 items-center text-[6px]">
             <div>◀</div>
             <div className="w-full h-px bg-white" />
@@ -30,9 +48,7 @@ export default function Asteroid({ asteroid }: { asteroid: Asteroid }) {
 
         <div>
           <p className="font-bold underline">{asteroid.name}</p>
-          <p className="text-xs">{`Ø ${Math.round(
-            asteroid.estimated_diameter.meters.estimated_diameter_max
-          )} м`}</p>
+          <p className="text-xs">{`Ø ${diameter} м`}</p>
         </div>
       </div>
 

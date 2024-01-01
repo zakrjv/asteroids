@@ -7,6 +7,7 @@ import Asteroid from '@/components/Asteroid';
 import Spin from '@/components/UI/Spin';
 import { AsteroidsType } from '@/shared';
 import { useFetchAsteroids } from '@/shared/hooks';
+import { UnitDistance } from '@/shared/types';
 
 const today = dayjs().format('YYYY-MM-DD');
 const ONE_DAY = 1;
@@ -14,6 +15,7 @@ const ONE_DAY = 1;
 export default function Asteroids() {
   const [asteroids, setAsteroids] = useState<AsteroidsType | null>(null);
   const [date, setDate] = useState<string>(today);
+  const [unit, setUnit] = useState<UnitDistance>(UnitDistance.Kilometers);
   const { ref, inView } = useInView({
     threshold: 1,
   });
@@ -31,15 +33,47 @@ export default function Asteroids() {
     }
   }, [inView]);
 
-  console.log(asteroids, isError);
+  console.log(unit);
 
   return (
     // Убрать magic number из стилей
     <section className="ml-14 md:w-[402px] md:m-auto md:pl-10">
       <h1 className="mb-2 text-title">Ближайшие подлёты астероидов</h1>
+
       <div className="mb-6 font-bold">
-        <button>в километрах</button> |{' '}
-        <button className="font-normal underline">в лунных орбитах</button>
+        <input
+          type="radio"
+          id={UnitDistance.Kilometers}
+          name="distance"
+          value={UnitDistance.Kilometers}
+          className="hidden peer/kilometers"
+          checked={unit == UnitDistance.Kilometers}
+          onChange={() => setUnit(UnitDistance.Kilometers)}
+        />
+        <label
+          htmlFor={UnitDistance.Kilometers}
+          className="cursor-pointer peer-checked/kilometers:font-normal peer-checked/kilometers:underline"
+        >
+          в километрах
+        </label>
+
+        <span className="px-2">|</span>
+
+        <input
+          type="radio"
+          id={UnitDistance.Lunar}
+          name="distance"
+          value={UnitDistance.Lunar}
+          className="hidden peer/lunar"
+          checked={unit == UnitDistance.Lunar}
+          onChange={() => setUnit(UnitDistance.Lunar)}
+        />
+        <label
+          htmlFor={UnitDistance.Lunar}
+          className="cursor-pointer peer-checked/lunar:font-normal peer-checked/lunar:underline"
+        >
+          в лунных орбитах
+        </label>
       </div>
 
       {!asteroids && isLoading ? (
@@ -55,7 +89,7 @@ export default function Asteroids() {
                   className="mb-6 last:mb-24"
                   key={asteroid.id + asteroid.name}
                 >
-                  <Asteroid asteroid={asteroid} />
+                  <Asteroid asteroid={asteroid} unitDistance={unit} />
                 </li>
               ));
             })}

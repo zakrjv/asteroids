@@ -101,3 +101,8 @@ export interface Asteroid {
   ];
   is_sentry_object: boolean;
 }
+
+export enum UnitDistance {
+  Kilometers = 'kilometers',
+  Lunar = 'lunar',
+}
