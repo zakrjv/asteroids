@@ -14,7 +14,6 @@ const ONE_DAY = 1;
 export default function Asteroids() {
   const [asteroids, setAsteroids] = useState<AsteroidsType | null>(null);
   const [date, setDate] = useState<string>(today);
-
   const { ref, inView } = useInView({
     threshold: 1,
   });
