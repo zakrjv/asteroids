@@ -43,7 +43,7 @@ export default function Asteroid(props: Props) {
           className="mr-2"
           src="/pngegg.png"
           alt="Иконка астероида"
-          width={36}
+          width={asteroid.is_potentially_hazardous_asteroid ? 36 : 26}
           height={40}
         />
 
