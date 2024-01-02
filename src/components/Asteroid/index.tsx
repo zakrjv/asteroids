@@ -6,7 +6,8 @@ interface Props {
   unitDistance: UnitDistance;
 }
 
-export default function Asteroid({ asteroid, unitDistance }: Props) {
+export default function Asteroid(props: Props) {
+  const { asteroid, unitDistance } = props;
   const diameter = Math.round(
     asteroid.estimated_diameter.meters.estimated_diameter_max
   );

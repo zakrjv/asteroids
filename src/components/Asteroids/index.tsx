@@ -8,6 +8,7 @@ import Spin from '@/components/UI/Spin';
 import { AsteroidsType } from '@/shared';
 import { useFetchAsteroids } from '@/shared/hooks';
 import { UnitDistance } from '@/shared/types';
+import UnitSwitch from '@/components/UnitSwitch';
 
 const today = dayjs().format('YYYY-MM-DD');
 const ONE_DAY = 1;
@@ -33,48 +34,12 @@ export default function Asteroids() {
     }
   }, [inView]);
 
-  console.log(unit);
-
   return (
     // Убрать magic number из стилей
     <section className="ml-14 md:w-[402px] md:m-auto md:pl-10">
       <h1 className="mb-2 text-title">Ближайшие подлёты астероидов</h1>
 
-      <div className="mb-6 font-bold">
-        <input
-          type="radio"
-          id={UnitDistance.Kilometers}
-          name="distance"
-          value={UnitDistance.Kilometers}
-          className="hidden peer/kilometers"
-          checked={unit == UnitDistance.Kilometers}
-          onChange={() => setUnit(UnitDistance.Kilometers)}
-        />
-        <label
-          htmlFor={UnitDistance.Kilometers}
-          className="cursor-pointer peer-checked/kilometers:font-normal peer-checked/kilometers:underline"
-        >
-          в километрах
-        </label>
-
-        <span className="px-2">|</span>
-
-        <input
-          type="radio"
-          id={UnitDistance.Lunar}
-          name="distance"
-          value={UnitDistance.Lunar}
-          className="hidden peer/lunar"
-          checked={unit == UnitDistance.Lunar}
-          onChange={() => setUnit(UnitDistance.Lunar)}
-        />
-        <label
-          htmlFor={UnitDistance.Lunar}
-          className="cursor-pointer peer-checked/lunar:font-normal peer-checked/lunar:underline"
-        >
-          в лунных орбитах
-        </label>
-      </div>
+      <UnitSwitch unit={unit} setUnit={setUnit} />
 
       {!asteroids && isLoading ? (
         <Spin />
