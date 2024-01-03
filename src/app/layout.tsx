@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body className="p-4">
+      <body className="p-4 before:content-[url(/planet-mobile.png)] before:fixed before:z-[-1] before:left-0 md:before:content-[url(/planet-tablet.png)] xl:before:content-[url(/planet-desktop.png)]">
         <Header />
         {children}
       </body>

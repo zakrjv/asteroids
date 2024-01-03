@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Asteroid, UnitDistance } from '@/shared/types';
+import Link from 'next/link';
 
 interface Props {
   asteroid: Asteroid;
@@ -48,7 +49,12 @@ export default function Asteroid(props: Props) {
         />
 
         <div>
-          <p className="font-bold underline">{asteroid.name}</p>
+          <Link
+            href={`asteroids/${asteroid.id}`}
+            className="font-bold underline"
+          >
+            {asteroid.name}
+          </Link>
           <p className="text-xs">{`Ø ${diameter} м`}</p>
         </div>
       </div>
