@@ -16,75 +16,87 @@ interface GetAsteroidsRequest {
   end_date?: string;
 }
 
-interface GetAsteriodsResponse {
-  links: {
-    next: string;
-    previous: string;
-    self: string;
-  };
-  element_count: number;
-  near_earth_objects: {
-    [date: string]: [
-      {
-        links: {
-          self: string;
-        };
-        id: string;
-        neo_reference_id: string;
-        name: string;
-        nasa_jpl_url: string;
-        absolute_magnitude_h: number;
-        estimated_diameter: {
-          kilometers: {
-            estimated_diameter_min: number;
-            estimated_diameter_max: number;
-          };
-          meters: {
-            estimated_diameter_min: number;
-            estimated_diameter_max: number;
-          };
-          miles: {
-            estimated_diameter_min: number;
-            estimated_diameter_max: number;
-          };
-          feet: {
-            estimated_diameter_min: number;
-            estimated_diameter_max: number;
-          };
-        };
-        is_potentially_hazardous_asteroid: true;
-        close_approach_data: [
-          {
-            close_approach_date: string;
-            close_approach_date_full: string;
-            epoch_date_close_approach: number;
-            relative_velocity: {
-              kilometers_per_second: string;
-              kilometers_per_hour: string;
-              miles_per_hour: string;
-            };
-            miss_distance: {
-              astronomical: string;
-              lunar: string;
-              kilometers: string;
-              miles: string;
-            };
-            orbiting_body: string;
-          },
-        ];
-        is_sentry_object: boolean;
-      },
-    ];
-  };
+interface GetAsteroidRequest {
+  asteroid_id: string;
 }
 
-export default function fetchAsteroids(params: GetAsteroidsRequest) {
+export function fetchAsteroids(params: GetAsteroidsRequest) {
   const { start_date, end_date } = params;
 
   return createApi()
     .get('feed', { params: { start_date, end_date, api_key: KEY } })
     .then((res) => res.data.near_earth_objects);
 }
+
+export function getAsteroidById(params: GetAsteroidRequest) {
+  const { asteroid_id } = params;
+
+  return createApi()
+    .get(`neo/${asteroid_id}`, { params: { api_key: KEY } })
+    .then((res) => res.data);
+}
+
+// interface GetAsteriodsResponse {
+//   links: {
+//     next: string;
+//     previous: string;
+//     self: string;
+//   };
+//   element_count: number;
+//   near_earth_objects: {
+//     [date: string]: [
+//       {
+//         links: {
+//           self: string;
+//         };
+//         id: string;
+//         neo_reference_id: string;
+//         name: string;
+//         nasa_jpl_url: string;
+//         absolute_magnitude_h: number;
+//         estimated_diameter: {
+//           kilometers: {
+//             estimated_diameter_min: number;
+//             estimated_diameter_max: number;
+//           };
+//           meters: {
+//             estimated_diameter_min: number;
+//             estimated_diameter_max: number;
+//           };
+//           miles: {
+//             estimated_diameter_min: number;
+//             estimated_diameter_max: number;
+//           };
+//           feet: {
+//             estimated_diameter_min: number;
+//             estimated_diameter_max: number;
+//           };
+//         };
+//         is_potentially_hazardous_asteroid: true;
+//         close_approach_data: [
+//           {
+//             close_approach_date: string;
+//             close_approach_date_full: string;
+//             epoch_date_close_approach: number;
+//             relative_velocity: {
+//               kilometers_per_second: string;
+//               kilometers_per_hour: string;
+//               miles_per_hour: string;
+//             };
+//             miss_distance: {
+//               astronomical: string;
+//               lunar: string;
+//               kilometers: string;
+//               miles: string;
+//             };
+//             orbiting_body: string;
+//           },
+//         ];
+//         is_sentry_object: boolean;
+//       },
+//     ];
+//   };
+// }
 
 // RESPONSE EXAMPLE
 /*

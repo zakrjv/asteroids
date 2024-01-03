@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import fetchAsteroids from '@/services/api';
+import { fetchAsteroids } from '@/services/api';
 import { AsteroidsType } from '@/shared/types';
 
 export const useFetchAsteroids = (date: string) => {
