@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { useInView } from 'react-intersection-observer';
+import { ONE_DAY, today } from '@/shared/constants';
 import Asteroid from '@/components/Asteroid';
 import Spin from '@/components/UI/Spin';
 import { AsteroidsType } from '@/shared';
@@ -10,18 +11,16 @@ import { useFetchAsteroids } from '@/shared/hooks';
 import { UnitDistance } from '@/shared/types';
 import UnitSwitch from '@/components/UnitSwitch';
 
-const today = dayjs().format('YYYY-MM-DD');
-const ONE_DAY = 1;
-
 export default function Asteroids() {
   const [asteroids, setAsteroids] = useState<AsteroidsType | null>(null);
   const [date, setDate] = useState<string>(today);
-  const [unit, setUnit] = useState<UnitDistance>(UnitDistance.Kilometers);
   const { ref, inView } = useInView({
     threshold: 1,
   });
+  const [unit, setUnit] = useState<UnitDistance>(UnitDistance.Kilometers);
   const { data, isLoading, isError } = useFetchAsteroids(date);
 
+  // scroll
   useEffect(() => {
     setAsteroids((prev) => ({ ...prev, ...data }));
   }, [data]);
@@ -35,12 +34,8 @@ export default function Asteroids() {
   }, [inView]);
 
   return (
-    // Убрать magic number из стилей
-    <section className="ml-14 md:w-[402px] md:m-auto md:pl-10">
-      <h1 className="mb-2 text-title">Ближайшие подлёты астероидов</h1>
-
+    <section>
       <UnitSwitch unit={unit} setUnit={setUnit} />
-
       {!asteroids && isLoading ? (
         <Spin />
       ) : (
