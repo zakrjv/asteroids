@@ -1,13 +1,13 @@
 import { getAsteroidById } from '@/services/api';
-import Info from '@/components/Info';
+import AsteroidInfo from '@/components/AsteroidInfo';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;
-  const asteroidInfo = await getAsteroidById(id);
+  const data = await getAsteroidById(id);
 
   return (
     <main>
-      <Info asteroidInfo={asteroidInfo} />
+      <AsteroidInfo data={data} />
     </main>
   );
 }

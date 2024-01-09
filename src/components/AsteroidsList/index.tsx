@@ -4,14 +4,13 @@ import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { useInView } from 'react-intersection-observer';
 import { ONE_DAY, today } from '@/shared/constants';
-import Asteroid from '@/components/Asteroid';
-import Spin from '@/components/UI/Spin';
-import { AsteroidsType } from '@/shared';
+import { AsteroidsType, UnitDistance } from '@/shared/types';
 import { useFetchAsteroids } from '@/shared/hooks';
-import { UnitDistance } from '@/shared/types';
+import AsteroidItem from '@/components/AsteroidItem';
+import Spin from '@/components/UI/Spin';
 import UnitSwitch from '@/components/UnitSwitch';
 
-export default function Asteroids() {
+export default function AsteroidsList() {
   const [asteroids, setAsteroids] = useState<AsteroidsType | null>(null);
   const [date, setDate] = useState<string>(today);
   const { ref, inView } = useInView({
@@ -49,7 +48,7 @@ export default function Asteroids() {
                   className="mb-6 last:mb-24"
                   key={asteroid.id + asteroid.name}
                 >
-                  <Asteroid asteroid={asteroid} unitDistance={unit} />
+                  <AsteroidItem asteroid={asteroid} unitDistance={unit} />
                 </li>
               ));
             })}

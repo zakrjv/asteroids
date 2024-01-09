@@ -1,13 +1,13 @@
+import Link from 'next/link';
 import Image from 'next/image';
 import { Asteroid, UnitDistance } from '@/shared/types';
-import Link from 'next/link';
 
 interface Props {
   asteroid: Asteroid;
   unitDistance: UnitDistance;
 }
 
-export default function Asteroid(props: Props) {
+export default function AsteroidItem(props: Props) {
   const { asteroid, unitDistance } = props;
   const diameter = Math.round(
     asteroid.estimated_diameter.meters.estimated_diameter_max

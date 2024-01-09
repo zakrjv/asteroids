@@ -1,14 +1,14 @@
 import { AsteroidInfo } from '@/shared/types';
 
 interface Props {
-  asteroidInfo: AsteroidInfo;
+  data: AsteroidInfo;
 }
 
-export default function Info(props: Props) {
-  const { asteroidInfo } = props;
-  console.log(122333);
-  console.log(asteroidInfo);
-  const { id, absolute_magnitude_h, close_approach_data } = asteroidInfo;
+export default function AsteroidInfo(props: Props) {
+  const { data } = props;
+  const { id, absolute_magnitude_h, close_approach_data } = data;
+  console.log(data);
+
   return (
     <div>
       <h1>{id}</h1>
