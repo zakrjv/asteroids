@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { useCartStore } from '@/store';
 import { Asteroid, UnitDistance } from '@/shared/types';
 import Order from '@/components/UI/Buttons/Order';
 
@@ -19,6 +20,7 @@ export default function AsteroidItem(props: Props) {
   const distanceLunar = Math.round(
     +asteroid.close_approach_data[0].miss_distance.lunar
   );
+  const addAsteroid = useCartStore((state) => state.addAsteroid);
 
   return (
     <>
@@ -61,7 +63,7 @@ export default function AsteroidItem(props: Props) {
       </div>
 
       <div className="flex items-center">
-        <Order>Заказать</Order>
+        <Order onClick={() => addAsteroid(asteroid)}>Заказать</Order>
 
         {asteroid.is_potentially_hazardous_asteroid ? (
           <span className="text-sm">⚠ Опасен</span>
