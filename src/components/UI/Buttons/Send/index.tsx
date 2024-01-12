@@ -1,4 +1,6 @@
 'use client';
+import React from 'react';
+
 export default function Send({ children }: { children: React.ReactNode }) {
   return (
     <button

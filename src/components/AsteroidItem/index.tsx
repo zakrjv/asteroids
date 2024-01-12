@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Asteroid, UnitDistance } from '@/shared/types';
+import Order from '@/components/UI/Buttons/Order';
 
 interface Props {
   asteroid: Asteroid;
@@ -60,9 +61,7 @@ export default function AsteroidItem(props: Props) {
       </div>
 
       <div className="flex items-center">
-        <button className="mr-2.5 px-3 py-1 font-bold uppercase text-xs text-accent-main bg-accent-main-15 rounded-full hover:bg-accent-main hover:text-white">
-          Заказать
-        </button>
+        <Order>Заказать</Order>
 
         {asteroid.is_potentially_hazardous_asteroid ? (
           <span className="text-sm">⚠ Опасен</span>
