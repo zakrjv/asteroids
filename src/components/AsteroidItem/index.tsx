@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useCartStore } from '@/store';
@@ -21,6 +22,18 @@ export default function AsteroidItem(props: Props) {
     +asteroid.close_approach_data[0].miss_distance.lunar
   );
   const addAsteroid = useCartStore((state) => state.addAsteroid);
+  const removeAsteroid = useCartStore((state) => state.removeAsteroid);
+  const [isAdded, setIsAdded] = useState<boolean>(false);
+
+  const handleAddAsteroid = () => {
+    addAsteroid(asteroid);
+    setIsAdded(true);
+  };
+
+  const handleRemoveAsteroid = () => {
+    removeAsteroid(asteroid.id);
+    setIsAdded(false);
+  };
 
   return (
     <>
@@ -63,7 +76,11 @@ export default function AsteroidItem(props: Props) {
       </div>
 
       <div className="flex items-center">
-        <Order onClick={() => addAsteroid(asteroid)}>Заказать</Order>
+        {isAdded ? (
+          <Order onClick={handleRemoveAsteroid}>В корзине</Order>
+        ) : (
+          <Order onClick={handleAddAsteroid}>Заказать</Order>
+        )}
 
         {asteroid.is_potentially_hazardous_asteroid ? (
           <span className="text-sm">⚠ Опасен</span>
