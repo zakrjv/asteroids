@@ -1,9 +1,15 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/store';
-import Send from '@/components/UI/Buttons/Send';
+import Main from '@/components/UI/Buttons/Main';
 
 export default function Cart() {
   const cart = useCartStore((state) => state.cart);
+  const router = useRouter();
+
+  const handleSend = () => {
+    router.push('/cart');
+  };
 
   return (
     <div className="fixed bottom-0 left-0 w-full flex justify-between p-4 bg-cart md:block md:w-auto md:left-auto md:top-32 md:right-28 md:bottom-auto md:p-4 md:rounded-3xl xl:right-64">
@@ -13,7 +19,9 @@ export default function Cart() {
           {cart.length > 0 ? `добавлено: ${cart.length}` : 'пуста'}
         </p>
       </div>
-      <Send>Отправить</Send>
+      <Main onClick={handleSend} isDisabled={cart.length === 0}>
+        Отправить
+      </Main>
     </div>
   );
 }

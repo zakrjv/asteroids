@@ -21,6 +21,7 @@ export default function AsteroidItem(props: Props) {
   const distanceLunar = Math.round(
     +asteroid.close_approach_data[0].miss_distance.lunar
   );
+  const cart = useCartStore((state) => state.cart);
   const addAsteroid = useCartStore((state) => state.addAsteroid);
   const removeAsteroid = useCartStore((state) => state.removeAsteroid);
   const [isAdded, setIsAdded] = useState<boolean>(false);
@@ -76,7 +77,7 @@ export default function AsteroidItem(props: Props) {
       </div>
 
       <div className="flex items-center">
-        {isAdded ? (
+        {isAdded || cart.find((el) => el.id === asteroid.id) ? (
           <Order onClick={handleRemoveAsteroid}>В корзине</Order>
         ) : (
           <Order onClick={handleAddAsteroid}>Заказать</Order>
