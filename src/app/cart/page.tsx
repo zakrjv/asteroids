@@ -1,8 +1,8 @@
 'use client';
-import { useAsteroidsStore } from '@/store';
+import { useStore } from '@/store';
 
 export default function Page() {
-  const cart = useAsteroidsStore((state) => state.cart);
+  const cart = useStore((state) => state.cart);
   const idAsteroids = Object.keys(cart);
 
   return (

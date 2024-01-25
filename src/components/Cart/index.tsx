@@ -1,10 +1,10 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { useAsteroidsStore } from '@/store';
+import { useStore } from '@/store';
 import Main from '@/components/UI/Buttons/Main';
 
 export default function Cart() {
-  const cart = useAsteroidsStore((state) => state.cart);
+  const cart = useStore((state) => state.cart);
   const idAsteroids = Object.keys(cart);
   const router = useRouter();
 

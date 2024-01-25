@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { useAsteroidsStore } from '@/store';
+// import { useStore } from '@/store';
 import { Asteroid, UnitDistance } from '@/shared/types';
 import Order from '@/components/UI/Buttons/Order';
 import { useState } from 'react';
@@ -21,12 +21,12 @@ export default function AsteroidItem(props: Props) {
   const distanceLunar = Math.round(
     +asteroid.close_approach_data[0].miss_distance.lunar
   );
-  const addAsteroid = useAsteroidsStore((state) => state.addAsteroid);
+  // const addAsteroid = useStore((state) => state.addAsteroid);
   // const removeAsteroid = useAsteroidsStore((state) => state.removeAsteroid);
   const [isAdded, setIsAdded] = useState(false);
 
   const handleAddAsteroid = () => {
-    addAsteroid(asteroid.id);
+    // addAsteroid(asteroid.id);
     setIsAdded(true);
   };
 
