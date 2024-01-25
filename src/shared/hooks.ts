@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { fetchAsteroids } from '@/services/api';
-import { AsteroidsType } from '@/shared/types';
+import type { Asteroid } from '@/shared/types';
+import { makeArrayByObject } from '@/shared/helpers';
 
 export const useFetchAsteroids = (date: string) => {
-  const [data, setData] = useState<AsteroidsType | null>(null);
-  const [isLoading, setLoading] = useState<boolean>(true);
-  const [isError, setError] = useState<boolean>(false);
+  const [data, setData] = useState<Asteroid[] | null>(null);
+  const [isLoading, setLoading] = useState(true);
+  const [isError, setError] = useState(false);
 
   const getData = useCallback(async () => {
     setLoading(true);
@@ -16,7 +17,9 @@ export const useFetchAsteroids = (date: string) => {
         start_date: date,
         end_date: date,
       });
-      setData(newData);
+      // поменять название
+      const newDataInArray = makeArrayByObject(newData);
+      setData(newDataInArray);
     } catch (error) {
       console.error(error);
       setLoading(false);

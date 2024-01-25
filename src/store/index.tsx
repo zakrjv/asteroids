@@ -1,20 +1,30 @@
 import { create } from 'zustand';
-import { Asteroid } from '@/shared/types';
+import type { Asteroid } from '@/shared/types';
 
-interface CartStore {
-  cart: Asteroid[];
-  addAsteroid: (currentAsteroid: Asteroid) => void;
-  removeAsteroid: (id: string) => void;
+interface AsteroidsStore {
+  asteroids: Asteroid[];
+  cart: { [id: Asteroid['id']]: boolean };
+  addAsteroid: (currentAsteroid: string) => void;
+  // removeAsteroid: (id: string) => void;
 }
 
-export const useCartStore = create<CartStore>((set) => ({
-  cart: [],
-  addAsteroid: (currentAsteroid) =>
+export const useAsteroidsStore = create<AsteroidsStore>((set) => ({
+  cart: {},
+  asteroids: [],
+  // addAsteroid: (currentAsteroid) =>
+  //   set((state) => ({
+  //     cart: [...state.cart, currentAsteroid],
+  //   })),
+  // removeAsteroid: (id) =>
+  //   set((state) => ({
+  //     cart: state.cart.filter((asteroid) => asteroid.id !== id),
+  //   })),
+  addAsteroid: (id) =>
     set((state) => ({
-      cart: [...state.cart, currentAsteroid],
+      ...state.cart,
+      [id]: true,
     })),
-  removeAsteroid: (id) =>
-    set((state) => ({
-      cart: state.cart.filter((asteroid) => asteroid.id !== id),
-    })),
+  // removeAsteroid: (id) => set((state) => (
+  //
+  // )),
 }));

@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useCartStore } from '@/store';
+import { useAsteroidsStore } from '@/store';
 import { Asteroid, UnitDistance } from '@/shared/types';
 import Order from '@/components/UI/Buttons/Order';
+import { useState } from 'react';
 
 interface Props {
   asteroid: Asteroid;
@@ -21,18 +21,17 @@ export default function AsteroidItem(props: Props) {
   const distanceLunar = Math.round(
     +asteroid.close_approach_data[0].miss_distance.lunar
   );
-  const cart = useCartStore((state) => state.cart);
-  const addAsteroid = useCartStore((state) => state.addAsteroid);
-  const removeAsteroid = useCartStore((state) => state.removeAsteroid);
-  const [isAdded, setIsAdded] = useState<boolean>(false);
+  const addAsteroid = useAsteroidsStore((state) => state.addAsteroid);
+  // const removeAsteroid = useAsteroidsStore((state) => state.removeAsteroid);
+  const [isAdded, setIsAdded] = useState(false);
 
   const handleAddAsteroid = () => {
-    addAsteroid(asteroid);
+    addAsteroid(asteroid.id);
     setIsAdded(true);
   };
 
   const handleRemoveAsteroid = () => {
-    removeAsteroid(asteroid.id);
+    // removeAsteroid(asteroid.id);
     setIsAdded(false);
   };
 
@@ -77,7 +76,8 @@ export default function AsteroidItem(props: Props) {
       </div>
 
       <div className="flex items-center">
-        {isAdded || cart.find((el) => el.id === asteroid.id) ? (
+        {/*{isAdded || cart.find((el) => el.id === asteroid.id) ? (*/}
+        {isAdded ? (
           <Order onClick={handleRemoveAsteroid}>В корзине</Order>
         ) : (
           <Order onClick={handleAddAsteroid}>Заказать</Order>

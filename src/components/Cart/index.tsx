@@ -1,10 +1,11 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { useCartStore } from '@/store';
+import { useAsteroidsStore } from '@/store';
 import Main from '@/components/UI/Buttons/Main';
 
 export default function Cart() {
-  const cart = useCartStore((state) => state.cart);
+  const cart = useAsteroidsStore((state) => state.cart);
+  const idAsteroids = Object.keys(cart);
   const router = useRouter();
 
   const handleSend = () => {
@@ -16,10 +17,12 @@ export default function Cart() {
       <div>
         <p className="font-bold text-lg">Корзина</p>
         <p className="md:mb-8">
-          {cart.length > 0 ? `добавлено: ${cart.length}` : 'пуста'}
+          {idAsteroids.length > 0
+            ? `добавлено: ${idAsteroids.length}`
+            : 'пуста'}
         </p>
       </div>
-      <Main onClick={handleSend} isDisabled={cart.length === 0}>
+      <Main onClick={handleSend} isDisabled={idAsteroids.length === 0}>
         Отправить
       </Main>
     </div>

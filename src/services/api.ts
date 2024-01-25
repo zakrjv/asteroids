@@ -18,7 +18,6 @@ interface GetAsteroidsRequest {
 
 export function fetchAsteroids(params: GetAsteroidsRequest) {
   const { start_date, end_date } = params;
-
   return createApi()
     .get('feed', { params: { start_date, end_date, api_key: KEY } })
     .then((res) => res.data.near_earth_objects);
