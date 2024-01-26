@@ -6,7 +6,7 @@ import { makeArrayByObject } from '@/shared/helpers';
 interface Store {
   asteroids: Asteroid[];
   cart: { [id: Asteroid['id']]: boolean };
-  getAsteroids: (data: string) => void;
+  getAsteroids: (data: string) => Promise<void>;
   // addAsteroid: (currentAsteroid: string) => void;
   // removeAsteroid: (id: string) => void;
 }

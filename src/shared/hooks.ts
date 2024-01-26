@@ -1,29 +1,29 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useStore } from '@/store';
 
 export const useFetchAsteroids = (date: string) => {
-  const [isLoading, setLoading] = useState(true);
-  const [isError, setError] = useState(false);
+  const [isLoading, setLoading] = useState<boolean | null>(null);
+  const [isError, setError] = useState<boolean | null>(null);
   const data = useStore((state) => state.asteroids);
   const getAsteroids = useStore((state) => state.getAsteroids);
 
-  const getData = useCallback(() => {
-    setLoading(true);
-    setError(false);
-
-    try {
-      getAsteroids(date);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-      setError(true);
-    }
-  }, [date, getAsteroids]);
-
   useEffect(() => {
-    getData();
-  }, [date, getData]);
+    const loadData = async () => {
+      setLoading(true);
+      setError(false);
+
+      try {
+        await getAsteroids(date);
+      } catch (error) {
+        setError(true);
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, [date, getAsteroids]);
 
   return { data, isLoading, isError };
 };
