@@ -26,8 +26,6 @@ export default function AsteroidsList() {
     }
   }, [inView]);
 
-  console.log(date, inView, data);
-
   return (
     <section>
       <UnitSwitch unit={unit} setUnit={setUnit} />

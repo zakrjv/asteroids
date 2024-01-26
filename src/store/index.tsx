@@ -5,15 +5,15 @@ import { makeArrayByObject } from '@/shared/helpers';
 
 interface Store {
   asteroids: Asteroid[];
-  cart: { [id: Asteroid['id']]: boolean };
-  getAsteroids: (data: string) => Promise<void>;
-  // addAsteroid: (currentAsteroid: string) => void;
-  // removeAsteroid: (id: string) => void;
+  cart: { [id: Asteroid['id']]: Asteroid };
+  getAsteroids: (date: string) => Promise<void>;
+  addAsteroid: (id: Asteroid['id'], asteroid: Asteroid) => void;
+  removeAsteroid: (id: Asteroid['id']) => void;
 }
 
 export const useStore = create<Store>((set) => ({
-  cart: {},
   asteroids: [],
+  cart: {},
   getAsteroids: async (date) => {
     const response = await fetchAsteroids({
       start_date: date,
@@ -25,20 +25,21 @@ export const useStore = create<Store>((set) => ({
       asteroids: [...state.asteroids, ...newData],
     }));
   },
-  // addAsteroid: (currentAsteroid) =>
-  //   set((state) => ({
-  //     cart: [...state.cart, currentAsteroid],
-  //   })),
-  // removeAsteroid: (id) =>
-  //   set((state) => ({
-  //     cart: state.cart.filter((asteroid) => asteroid.id !== id),
-  //   })),
-  // addAsteroid: (id) =>
-  //   set((state) => ({
-  //     ...state.cart,
-  //     [id]: true,
-  //   })),
-  // removeAsteroid: (id) => set((state) => (
-  //
-  // )),
+  addAsteroid: (id, asteroid) =>
+    set((state) => ({
+      ...state,
+      cart: {
+        ...state.cart,
+        [id]: asteroid,
+      },
+    })),
+  removeAsteroid: (id) =>
+    set((state) => {
+      const updatedCart = { ...state.cart };
+      delete updatedCart[id];
+      return {
+        ...state,
+        cart: updatedCart,
+      };
+    }),
 }));
