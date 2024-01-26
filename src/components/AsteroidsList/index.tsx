@@ -26,7 +26,7 @@ export default function AsteroidsList() {
     }
   }, [inView]);
 
-  console.log(isLoading, data);
+  console.log(date, inView, data);
 
   return (
     <section>
@@ -40,13 +40,6 @@ export default function AsteroidsList() {
               <AsteroidItem asteroid={asteroid} unitDistance={unit} />
             </li>
           ))}
-          {isLoading ? (
-            <li className="mb-6 last:mb-24">
-              <Spin />
-            </li>
-          ) : (
-            ''
-          )}
         </ul>
       )}
       <div ref={ref} />
