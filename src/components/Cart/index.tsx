@@ -5,10 +5,14 @@ import Main from '@/components/UI/Buttons/Main';
 
 export default function Cart() {
   const cart = useStore((state) => state.cart);
+  const saveOrder = useStore((state) => state.saveOrder);
+  const sendOrder = useStore((state) => state.sendOrder);
   const idAsteroids = Object.keys(cart);
   const router = useRouter();
 
   const handleSend = () => {
+    saveOrder();
+    sendOrder();
     router.push('/cart');
   };
 

@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useStore } from '@/store';
 
 export const useFetchAsteroids = (date: string) => {
-  const [isLoading, setLoading] = useState<boolean | null>(null);
-  const [isError, setError] = useState<boolean | null>(null);
+  const [isLoading, setLoading] = useState(true);
+  const [isError, setError] = useState(false);
   const data = useStore((state) => state.asteroids);
   const getAsteroids = useStore((state) => state.getAsteroids);
 

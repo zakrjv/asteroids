@@ -3,17 +3,25 @@ import type { Asteroid } from '@/shared/types';
 import { fetchAsteroids } from '@/services/api';
 import { makeArrayByObject } from '@/shared/helpers';
 
+interface AsteroidsById {
+  [id: Asteroid['id']]: Asteroid;
+}
+
 interface Store {
   asteroids: Asteroid[];
-  cart: { [id: Asteroid['id']]: Asteroid };
+  cart: AsteroidsById;
+  lastOrder: AsteroidsById;
   getAsteroids: (date: string) => Promise<void>;
   addAsteroid: (id: Asteroid['id'], asteroid: Asteroid) => void;
   removeAsteroid: (id: Asteroid['id']) => void;
+  sendOrder: () => void;
+  saveOrder: () => void;
 }
 
 export const useStore = create<Store>((set) => ({
   asteroids: [],
   cart: {},
+  lastOrder: {},
   getAsteroids: async (date) => {
     const response = await fetchAsteroids({
       start_date: date,
@@ -40,6 +48,22 @@ export const useStore = create<Store>((set) => ({
       return {
         ...state,
         cart: updatedCart,
+      };
+    }),
+  saveOrder: () =>
+    set((state) => {
+      const order = JSON.parse(JSON.stringify(state.cart));
+      return {
+        ...state,
+        lastOrder: order,
+      };
+    }),
+  sendOrder: () =>
+    set((state) => {
+      //logic
+      return {
+        ...state,
+        cart: {},
       };
     }),
 }));
