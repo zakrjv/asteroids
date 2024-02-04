@@ -62,10 +62,7 @@ export default function AsteroidItem(props: Props) {
         />
 
         <div>
-          <Link
-            href={`asteroids/${asteroid.id}`}
-            className="font-bold underline"
-          >
+          <Link href={`/${asteroid.id}`} className="font-bold underline">
             {asteroid.name}
           </Link>
           <p className="text-xs">{`Ø ${diameter} м`}</p>
