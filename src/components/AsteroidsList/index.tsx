@@ -15,7 +15,7 @@ export default function AsteroidsList() {
   const { ref, inView } = useInView({
     threshold: 1,
   });
-  const { data, isLoading, isError } = useFetchAsteroids(date);
+  const { data, isLoading } = useFetchAsteroids(date);
   const [unit, setUnit] = useState<UnitDistance>(UnitDistance.Kilometers);
 
   useEffect(() => {
