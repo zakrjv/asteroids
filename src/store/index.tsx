@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import type { Asteroid } from '@/shared/types';
-import { fetchAsteroids } from '@/services/api';
-import { makeArrayByObject } from '@/shared/helpers';
+import { getAsteroids } from '@/services/api';
+import { makeArrayByObject } from '@/helpers';
 
 interface AsteroidsById {
   [id: Asteroid['id']]: Asteroid;
@@ -23,7 +23,7 @@ export const useStore = create<Store>((set) => ({
   cart: {},
   lastOrder: {},
   getAsteroids: async (date) => {
-    const response = await fetchAsteroids({
+    const response = await getAsteroids({
       start_date: date,
       end_date: date,
     });

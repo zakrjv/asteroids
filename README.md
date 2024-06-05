@@ -9,6 +9,8 @@ Asteroids — онлайн-сервис по мониторингу и унич�
 * Tailwind;
 * Axios;
 * Zustand;
+* Jest;
+* Testing library;
 * Eslint;
 * Prettier.
 
